@@ -75,6 +75,21 @@ export function newWords(filter = () => true, limit = Infinity) {
   return out;
 }
 
+export function counts(words) {
+  const c = { new: 0, learning: 0, mastered: 0 };
+  for (const w of words) c[statusOf(w.id)]++;
+  return c;
+}
+
+// Palavras que você mais erra (pelo menos 2 erros e 25% ou mais de erro).
+export function hardWords(limit = 20) {
+  const ratio = (w) => { const s = stateOf(w.id); return s.w / (s.c + s.w); };
+  return allWords()
+    .filter((w) => { const s = stateOf(w.id); return s && s.w >= 2 && s.w / (s.c + s.w) >= 0.25; })
+    .sort((a, b) => ratio(b) - ratio(a))
+    .slice(0, limit);
+}
+
 // Monta a fila de estudo: revisões do dia + palavras novas (respeitando o limite diário).
 export function buildSession({ cat = null, extraNew = 0 } = {}) {
   const filter = (w) => (!cat || w.cat === cat);

@@ -90,6 +90,55 @@ const STR = {
   },
 };
 
+const MORE = {
+  pt: {
+    goal: 'Meta do dia', xpToday: 'XP hoje', totalXp: 'XP total', goalDone: 'Meta do dia batida! 🎉',
+    wordOfDay: 'Palavra do dia', hardWords: 'Palavras difíceis', hardDesc: (n) => `${n} palavras que você mais erra`,
+    train: 'Treinar', play: 'Jogar', matchTitle: 'Jogo dos pares', matchDesc: 'Ligue cada palavra em alemão à tradução',
+    qListen: 'Ouvir e escolher', qDictation: 'Ditado: ouvir e escrever', replay: 'Ouvir de novo',
+    time: 'Tempo', mistakes: 'Erros', best: 'Recorde', newBest: 'Novo recorde!', badges: 'Conquistas',
+    unlocked: 'Conquista desbloqueada!', heatmap: 'Atividade', less: 'menos', more: 'mais',
+    sTheme: 'Tema', themeAuto: 'Automático', themeLight: 'Claro', themeDark: 'Escuro', sGoal: 'Meta diária (XP)',
+    sSfx: 'Efeitos sonoros', swipeHint: 'Arraste o cartão: → Bom · ← Errei', tapToFlip: 'Toque no cartão para virar',
+    earned: (n) => `+${n} XP`, games: 'Treinos rápidos', qModes: 'Quiz', voiceNeural: 'Voz natural gravada (recomendada)',
+    voiceBrowser: 'Voz do navegador', pickPair: 'Toque numa palavra e depois na tradução', seconds: (n) => `${n}s`,
+    quizDesc: { dePt: 'Veja em alemão, escolha em português', deEn: 'Veja em alemão, escolha em inglês', ptDe: 'Veja em português, ache o alemão',
+      enDe: 'Veja em inglês, ache o alemão', art: 'Treine der, die e das', write: 'Escreva a palavra em alemão',
+      listen: 'Escute e escolha a palavra certa', dictation: 'Escute e escreva o que ouviu' },
+  },
+  en: {
+    goal: 'Daily goal', xpToday: 'XP today', totalXp: 'Total XP', goalDone: 'Daily goal reached! 🎉',
+    wordOfDay: 'Word of the day', hardWords: 'Difficult words', hardDesc: (n) => `${n} words you miss the most`,
+    train: 'Practice', play: 'Play', matchTitle: 'Pairs game', matchDesc: 'Match each German word to its translation',
+    qListen: 'Listen and choose', qDictation: 'Dictation: listen and write', replay: 'Listen again',
+    time: 'Time', mistakes: 'Mistakes', best: 'Best', newBest: 'New record!', badges: 'Achievements',
+    unlocked: 'Achievement unlocked!', heatmap: 'Activity', less: 'less', more: 'more',
+    sTheme: 'Theme', themeAuto: 'Automatic', themeLight: 'Light', themeDark: 'Dark', sGoal: 'Daily goal (XP)',
+    sSfx: 'Sound effects', swipeHint: 'Swipe the card: → Good · ← Again', tapToFlip: 'Tap the card to flip',
+    earned: (n) => `+${n} XP`, games: 'Quick practice', qModes: 'Quiz', voiceNeural: 'Recorded natural voice (recommended)',
+    voiceBrowser: 'Browser voice', pickPair: 'Tap a word, then its translation', seconds: (n) => `${n}s`,
+    quizDesc: { dePt: 'See German, pick Portuguese', deEn: 'See German, pick English', ptDe: 'See Portuguese, find German',
+      enDe: 'See English, find German', art: 'Practice der, die and das', write: 'Type the word in German',
+      listen: 'Listen and pick the right word', dictation: 'Listen and type what you heard' },
+  },
+  de: {
+    goal: 'Tagesziel', xpToday: 'XP heute', totalXp: 'XP gesamt', goalDone: 'Tagesziel erreicht! 🎉',
+    wordOfDay: 'Wort des Tages', hardWords: 'Schwierige Wörter', hardDesc: (n) => `${n} Wörter, die du oft falsch hast`,
+    train: 'Üben', play: 'Spielen', matchTitle: 'Paare finden', matchDesc: 'Verbinde jedes deutsche Wort mit der Übersetzung',
+    qListen: 'Hören und wählen', qDictation: 'Diktat: hören und schreiben', replay: 'Nochmal hören',
+    time: 'Zeit', mistakes: 'Fehler', best: 'Rekord', newBest: 'Neuer Rekord!', badges: 'Erfolge',
+    unlocked: 'Erfolg freigeschaltet!', heatmap: 'Aktivität', less: 'weniger', more: 'mehr',
+    sTheme: 'Design', themeAuto: 'Automatisch', themeLight: 'Hell', themeDark: 'Dunkel', sGoal: 'Tagesziel (XP)',
+    sSfx: 'Soundeffekte', swipeHint: 'Karte wischen: → Gut · ← Falsch', tapToFlip: 'Tippe auf die Karte zum Umdrehen',
+    earned: (n) => `+${n} XP`, games: 'Schnelles Üben', qModes: 'Quiz', voiceNeural: 'Aufgenommene natürliche Stimme (empfohlen)',
+    voiceBrowser: 'Browserstimme', pickPair: 'Tippe ein Wort, dann die Übersetzung', seconds: (n) => `${n} s`,
+    quizDesc: { dePt: 'Deutsch sehen, Portugiesisch wählen', deEn: 'Deutsch sehen, Englisch wählen', ptDe: 'Portugiesisch sehen, Deutsch finden',
+      enDe: 'Englisch sehen, Deutsch finden', art: 'Übe der, die und das', write: 'Schreib das Wort auf Deutsch',
+      listen: 'Hör zu und wähle das Wort', dictation: 'Hör zu und schreib, was du hörst' },
+  },
+};
+for (const k of Object.keys(MORE)) Object.assign(STR[k], MORE[k]);
+
 export function t(key, ...args) {
   const lang = store.settings.ui;
   const v = STR[lang]?.[key] ?? STR.pt[key] ?? key;

@@ -6,17 +6,23 @@ const DEFAULTS = {
   version: 1,
   progress: {},   // id da palavra -> estado da repetição espaçada
   custom: [],     // palavras adicionadas por você
-  days: {},       // 'AAAA-MM-DD' -> { rev, new, ok, bad }
+  days: {},       // 'AAAA-MM-DD' -> { rev, new, ok, bad, xp }
+  xp: 0,
+  badges: {},     // id da conquista -> data em que desbloqueou
+  best: {},       // recordes (ex.: tempo no jogo dos pares)
   settings: {
     ui: 'pt',            // idioma da interface: pt | en | de
     newPerDay: 10,
     show: 'both',        // traduções exibidas: both | en | pt
     direction: 'de',     // de = alemão na frente | native = tradução na frente | mix
-    rate: 0.9,           // velocidade da voz
+    rate: 1,             // velocidade da voz (1 = normal)
     autoplay: true,
     level: 'A1',
-    voiceDe: '',         // voz escolhida (vazio = melhor disponível)
+    voiceDe: '',         // vazio = voz neural gravada; 'auto' ou id = voz do navegador
     voiceEn: '',
+    theme: 'auto',       // auto | light | dark
+    goal: 100,           // meta diária em XP
+    sfx: true,           // efeitos sonoros
   },
 };
 
@@ -52,7 +58,7 @@ export function todayKey(d = new Date()) {
 
 export function logDay(field, n = 1) {
   const k = todayKey();
-  const day = store.data.days[k] || (store.data.days[k] = { rev: 0, new: 0, ok: 0, bad: 0 });
+  const day = store.data.days[k] || (store.data.days[k] = { rev: 0, new: 0, ok: 0, bad: 0, xp: 0 });
   day[field] = (day[field] || 0) + n;
 }
 
