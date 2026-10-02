@@ -2,7 +2,8 @@
 import { store } from './store.js';
 import { t } from './i18n.js';
 import { canSpeak } from './speech.js';
-import { pron } from './pron.js';
+import { pronMarkup } from './pron.js';
+import { SOUNDS } from './data/sounds.js';
 
 export const $view = document.getElementById('view');
 
@@ -72,5 +73,23 @@ export const go = (hash) => { if (location.hash === hash) window.dispatchEvent(n
 // Pronúncia aportuguesada por sílabas, embaixo do alemão (pode ser desligada nos Ajustes).
 export function pronHtml(text) {
   if (!store.settings.pron) return '';
-  return `<div class="pron" title="${esc(t('pronTip'))}">🗣️ ${esc(pron(text))}</div>`;
+  return `<div class="pron" title="${esc(t('pronTip'))}">🗣️ ${pronMarkup(text)}</div>`;
 }
+
+// Explicação de um som que não existe em português (ao tocar num som destacado).
+export function soundDialog(id) {
+  const snd = SOUNDS.find((x) => x.id === id);
+  if (!snd) return;
+  openDialog(`
+    <div class="snd-big">${esc(snd.sym)}</div>
+    <h2>${esc(snd.title)}</h2>
+    <ol class="how">${snd.how.map((h) => `<li>${esc(h)}</li>`).join('')}</ol>
+    <p class="warn">⚠️ ${esc(snd.mistake)}</p>
+    <div class="ex-row">${snd.examples.map((e) => `<span class="ex-chip">${esc(e)} ${sayBoth(e)}<span class="pron inline">🗣️ ${pronMarkup(e)}</span></span>`).join('')}</div>
+    <div class="row wrap"><a class="btn" href="#/sounds" data-close>🗣️ ${esc(t('soundsTitle'))}</a><button class="btn primary" data-close>OK</button></div>`);
+}
+
+document.addEventListener('click', (e) => {
+  const s = e.target.closest('[data-snd]');
+  if (s) { e.stopPropagation(); soundDialog(s.dataset.snd); }
+}, true);

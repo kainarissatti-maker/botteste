@@ -686,3 +686,36 @@ body.focus { padding-bottom: 24px; }
 :root[data-theme="light"] .rule-v { color: #b45309; }
 .rule p { margin: 6px 0 8px; font-size: .9rem; }
 .de-ex { font-weight: 700; font-size: 1.05rem; }
+
+/* v0.6 — sons que não existem em português */
+.snd { color: #fde68a; border-bottom: 2px dotted currentColor; cursor: help; padding: 0 1px; border-radius: 2px; }
+.snd:hover { background: rgb(253 230 138 / .15); }
+:root[data-theme="light"] .snd { color: #b45309; }
+.sec-title { margin: 26px 0 6px; font-size: 1.2rem; }
+.sounds { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.sound { margin: 0; }
+.sound-head { display: flex; align-items: center; gap: 12px; width: 100%; background: none; border: 0; color: var(--ink); font: inherit; text-align: left; cursor: pointer; padding: 0; }
+.sound-head b { flex: 1; font-size: 1.05rem; }
+.sound-head .more { font-size: 1.6rem; color: var(--muted); }
+.snd-sym { display: grid; place-items: center; min-width: 52px; height: 52px; padding: 0 8px; border-radius: 14px; background: var(--grad); color: #fff; font-weight: 900; font-size: 1.3rem; box-shadow: var(--glow); }
+.ex-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; }
+.ex-chip { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 2px 4px; padding: 6px 10px; border-radius: 12px; background: var(--surface-2); font-weight: 650; }
+.ex-chip .pron.inline { flex-basis: 100%; font-size: .82rem; margin: 0; }
+.pairs-label { margin: 14px 0 6px; font-weight: 700; color: var(--muted); font-size: .85rem; }
+.pair { padding: 10px 0; border-top: 1px solid var(--line); }
+.pair-words { display: flex; align-items: center; gap: 8px; }
+.pair-w { flex: 1; flex-direction: column; gap: 2px; padding: 10px; }
+.pair-w small { color: var(--muted); font-weight: 500; }
+.pair-w .pron { font-size: .8rem; margin: 2px 0 0; }
+.vs { color: var(--muted); font-weight: 800; }
+.drill { margin-top: 8px; }
+.drill-box .row { margin-top: 6px; }
+.drill-box p { margin: 6px 0 0; }
+.drill-box .btn.ok { background: var(--ok-bg); border-color: var(--mastered); }
+.drill-box .btn.bad { background: var(--bad-bg); border-color: var(--die); animation: shake .4s ease; }
+.good { color: var(--mastered); font-weight: 700; }
+.badtxt { color: var(--die); font-weight: 700; }
+.snd-big { font-size: 3rem; font-weight: 900; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.how { text-align: left; margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; line-height: 1.4; }
+.dialog-body .ex-row { justify-content: center; }
+.dialog-body .warn { text-align: left; }

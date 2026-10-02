@@ -32,8 +32,9 @@ function word(w) {
     if ((i === 0 || i === prefixLen) && (m = at(/s[tp]/y))) { out += m === 'st' ? 'cht' : 'chp'; i += 2; continue; }
     if ((m = at(/ng/y))) { out += 'ng'; i += 2; continue; }
     if ((m = at(/chs/y))) { out += 'ks'; i += 3; continue; }
-    if ((m = at(/ch/y))) { out += 'aou'.includes(prev) ? 'rr' : 'ch'; i += 2; continue; }
-    if ((m = at(/ig$/y))) { out += 'ich'; i += 2; continue; }
+    // Marcadores invisíveis: \u200b = ch de "ich", \u200c = ch de "Buch", \u200d = "a" do -er (sons sem equivalente).
+    if ((m = at(/ch/y))) { out += 'aou'.includes(prev) ? '\u200crr' : '\u200bch'; i += 2; continue; }
+    if ((m = at(/ig$/y))) { out += 'i\u200bch'; i += 2; continue; }
     if ((m = at(/tion/y))) { out += 'tsion'; i += 4; continue; }
     if ((m = at(/(ei|ey|ai|ay)/y))) { out += 'ai'; i += 2; continue; }
     if ((m = at(/ie/y))) { out += 'i'; i += 2; continue; }
@@ -49,7 +50,7 @@ function word(w) {
     if ((m = at(/ph/y))) { out += 'f'; i += 2; continue; }
     if ((m = at(/th/y))) { out += 't'; i += 2; continue; }
     if ((m = at(/(ß|ss)/y))) { out += 'ss'; i += m.length; continue; }
-    if (s.length > 3 && (m = at(/er$/y))) { out += 'a'; i += 2; continue; }
+    if (s.length > 3 && (m = at(/er$/y))) { out += '\u200da'; i += 2; continue; }
     // Consoante dobrada soa como uma só.
     if (c === next && !isV(c) && c !== 's') { i += 1; continue; }
     if (isV(c)) {
@@ -67,7 +68,7 @@ function word(w) {
       case 'c': out += 'ei'.includes(next) ? 'ts' : 'k'; break;
       case 's': out += isV(next) && (i === 0 || isV(prev)) ? 'z' : 's'; break;
       case 'h': out += (i === 0 || !isV(prev)) && isV(next) ? 'rr' : ''; break;
-      case 'r': out += i === 0 ? 'rr' : end(1) && isV(prev) && s.length > 3 ? 'a' : 'r'; break;
+      case 'r': out += i === 0 ? 'rr' : end(1) && isV(prev) && s.length > 3 ? '\u200da' : 'r'; break;
       case 'g': out += 'ei'.includes(next) ? 'gu' : end(1) ? 'k' : 'g'; break;
       case 'd': out += end(1) ? 't' : 'd'; break;
       case 'b': out += end(1) ? 'p' : 'b'; break;
@@ -79,8 +80,8 @@ function word(w) {
 }
 
 // ---------- divisão em sílabas (sobre a pronúncia já aportuguesada) ----------
-const NUC = /^(ói|ai|au|[aeiouáéíóúâêôãõöü])/;
-const CONS = /^(tch|ch|rr|ts|gu(?=[eêéi])|kv|[bcdfghjklmnpqrstvwxyzç])/;
+const NUC = /^\u200d?(ói|ai|au|[aeiouáéíóúâêôãõöü])/;
+const CONS = /^[\u200b\u200c]?(tch|ch|rr|ts|gu(?=[eêéi])|kv|[bcdfghjklmnpqrstvwxyzç])/;
 const ONSET2 = /^([bpdtkgf]|ch)[rl]$/; // pares que ficam juntos no começo da sílaba: br, pl, tr, chr...
 
 function units(w) {
@@ -107,21 +108,33 @@ function syllables(w) {
     const a = nuclei[n], b = nuclei[n + 1];
     const cons = b - a - 1;
     // "a" final que veio do R (hier -> rria) fica na mesma sílaba.
-    if (cons === 0) { if (!(b === u.length - 1 && u[b].t === 'a')) cuts.add(b); }
+    if (cons === 0) { if (!(b === u.length - 1 && u[b].t.endsWith('a'))) cuts.add(b); }
     else if (cons === 1) cuts.add(a + 1);
     else {
       const pair = u[b - 2].t + u[b - 1].t;
-      const keep = ONSET2.test(pair) || (u[b - 2].t === 'ch' && /^[tp]$/.test(u[b - 1].t)); // cht, chp (de st/sp)
+      const keep = ONSET2.test(pair.replace(/[\u200b\u200c]/g, '')) || (u[b - 2].t === 'ch' && /^[tp]$/.test(u[b - 1].t)); // cht, chp (de st/sp)
       cuts.add(keep ? b - 2 : b - 1);
     }
   }
   return u.map((x, k) => (cuts.has(k) ? `-${x.t}` : x.t)).join('');
 }
 
-export function pron(text) {
+function pronRaw(text) {
   return text.split(/(\s+|[-.,!?;:„“"…]+)/)
     .map((part) => (/^[\p{L}']+$/u.test(part) ? syllables(word(part.replace(/'/g, ''))) : part))
     .join('');
+}
+
+const MARKS = /[\u200b\u200c\u200d]/g;
+export function pron(text) { return pronRaw(text).replace(MARKS, ''); }
+
+// HTML com os sons que não existem em português destacados (tocar abre a explicação).
+export function pronMarkup(text) {
+  const esc = (x) => x.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const tag = (id, txt) => `<span class="snd" data-snd="${id}">${txt}</span>`;
+  return esc(pronRaw(text))
+    .replace(/\u200bch/g, tag('ich', 'ch')).replace(/\u200crr/g, tag('ach', 'rr')).replace(/\u200da/g, tag('er', 'a'))
+    .replace(/ö/g, tag('o', 'ö')).replace(/ü/g, tag('u', 'ü'));
 }
 
 // Regras do guia de pronúncia, com um exemplo do vocabulário (tem áudio gravado).

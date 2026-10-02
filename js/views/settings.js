@@ -54,7 +54,7 @@ export function viewSettings() {
         <button class="btn danger" id="rst">${t('reset')}</button>
       </div>
     </section>
-    <p class="muted center small">APIvonKAKA · v0.5</p>`;
+    <p class="muted center small">APIvonKAKA · v0.6</p>`;
 
   $view.querySelectorAll('[data-set]').forEach((el) => el.addEventListener('change', () => {
     const key = el.dataset.set;
