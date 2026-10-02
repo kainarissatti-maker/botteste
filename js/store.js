@@ -10,6 +10,7 @@ const DEFAULTS = {
   xp: 0,
   badges: {},     // id da conquista -> data em que desbloqueou
   best: {},       // recordes (ex.: tempo no jogo dos pares)
+  lessons: {},    // id da lição da trilha -> { at, best, times }
   settings: {
     ui: 'pt',            // idioma da interface: pt | en | de
     newPerDay: 10,

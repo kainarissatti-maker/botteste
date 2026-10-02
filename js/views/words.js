@@ -58,7 +58,7 @@ function drawWordList() {
     <section class="card group">
       <div class="group-head">
         <h2>${CATEGORIES[cat]?.icon || '⭐'} ${esc(catLabel(cat, lang()))} <small class="muted">${t('count', ws.length)}</small></h2>
-        <a class="btn sm" href="#/study/cat:${encodeURIComponent(cat)}">${t('studyCat')}</a>
+        <a class="btn sm" href="#/review/cat:${encodeURIComponent(cat)}">${t('studyCat')}</a>
       </div>
       <ul class="wlist">${ws.map((w) => `
         <li data-id="${esc(w.id)}">

@@ -63,7 +63,7 @@ export function viewProgress() {
       <h2>${t('byCat')}</h2>
       ${Object.entries(byCat).map(([cat, ws]) => {
         const cc = counts(ws);
-        return `<a class="lvl link" href="#/study/cat:${encodeURIComponent(cat)}"><span class="lvl-name wide">${CATEGORIES[cat]?.icon || '⭐'} ${esc(catLabel(cat, ui))}</span>${stackBar(cc, ws.length)}<span class="lvl-num">${cc.mastered + cc.learning}/${ws.length}</span></a>`;
+        return `<a class="lvl link" href="#/review/cat:${encodeURIComponent(cat)}"><span class="lvl-name wide">${CATEGORIES[cat]?.icon || '⭐'} ${esc(catLabel(cat, ui))}</span>${stackBar(cc, ws.length)}<span class="lvl-num">${cc.mastered + cc.learning}/${ws.length}</span></a>`;
       }).join('')}
       <div class="legend"><span><span class="dot mastered"></span>${t('statMastered')}</span><span><span class="dot learning"></span>${t('statLearning')}</span><span><span class="dot new"></span>${t('statNew')}</span></div>
     </section>`;

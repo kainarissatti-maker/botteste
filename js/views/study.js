@@ -13,7 +13,7 @@ export function viewStudy(param) {
   const opts = {};
   if (param.startsWith('cat:')) opts.cat = param.slice(4);
   if (param === 'more') opts.extraNew = 5;
-  const queue = param === 'hard' ? hardWords() : buildSession(opts);
+  const queue = param === 'hard' ? hardWords() : buildSession({ ...opts, noNew: !opts.cat });
   S = { queue, done: 0, tries: 0, fails: 0, xp: 0, revealed: false, busy: false, front: 'de', t0: Date.now() };
 
   $view.innerHTML = `
@@ -159,7 +159,7 @@ function studyDone() {
         <div><b>${mins}</b><span>min</span></div></div>` : ''}
       <div class="row">
         <a class="btn" href="#/home">${t('backHome')}</a>
-        <a class="btn primary" href="#/study/more">${t('learnMore')}</a>
+        <a class="btn primary" href="#/review/more">${t('learnMore')}</a>
       </div>
     </section>`;
   animateIn(document.getElementById('stage'));

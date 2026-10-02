@@ -38,9 +38,14 @@ def collect():
     for pack in sorted((ROOT / 'js' / 'data').glob('*.js')):
         for line in pack.read_text(encoding='utf-8').splitlines():
             parts = line.strip().split('|')
-            if len(parts) == 4 and not line.lstrip().startswith('//'):
+            if line.lstrip().startswith('//'):
+                continue
+            if len(parts) == 4:    # palavra: alemão|plural|inglês|português
                 texts['de'].add(clean(parts[0]))
                 texts['en'].add(clean(parts[2]))
+            elif len(parts) == 3:  # frase: alemão|inglês|português
+                texts['de'].add(clean(parts[0]))
+                texts['en'].add(clean(parts[1]))
     return {k: sorted(t for t in v if t) for k, v in texts.items()}
 
 

@@ -6,6 +6,8 @@ import { stagger, animateIn } from './fx.js';
 import { todayXp, goal } from './gamify.js';
 import { viewHome } from './views/home.js';
 import { viewStudy } from './views/study.js';
+import { viewPath } from './views/path.js';
+import { viewLesson } from './views/lesson.js';
 import { viewQuiz } from './views/quiz.js';
 import { viewMatch } from './views/match.js';
 import { viewWords, wordDetail } from './views/words.js';
@@ -13,8 +15,8 @@ import { viewProgress } from './views/progress.js';
 import { viewSettings } from './views/settings.js';
 
 const $nav = document.getElementById('nav');
-const ROUTES = { home: viewHome, study: viewStudy, quiz: viewQuiz, match: viewMatch, words: viewWords, progress: viewProgress, settings: viewSettings };
-const NAV_OF = { match: 'quiz' }; // o jogo dos pares fica "dentro" do Quiz na navegação
+const ROUTES = { home: viewHome, study: viewPath, review: viewStudy, lesson: viewLesson, quiz: viewQuiz, match: viewMatch, words: viewWords, progress: viewProgress, settings: viewSettings };
+const NAV_OF = { match: 'quiz', review: 'study', lesson: 'study' }; // telas que ficam "dentro" de outra aba
 let cleanup = null;
 
 function renderNav(active) {

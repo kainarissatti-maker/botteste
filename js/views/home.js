@@ -2,6 +2,7 @@ import { store, streak, todayKey } from '../store.js';
 import { allWords, LEVELS, hasPack, CATEGORIES, catLabel } from '../words.js';
 import { stateOf, dueWords, newWordsToday, counts, hardWords } from '../srs.js';
 import { todayXp, goal } from '../gamify.js';
+import { currentLesson, unitTitle, unitIcon, courseStats } from '../course.js';
 import { t, lang } from '../i18n.js';
 import { $view, esc, pct, deHtml, trHtml, sayBoth, stackBar, ICON } from '../ui.js';
 import { animateIn } from '../fx.js';
@@ -32,13 +33,13 @@ function wordOfDay(words) {
 export function viewHome() {
   const words = allWords();
   const due = dueWords().length;
-  const newLeft = Math.min(Math.max(0, store.settings.newPerDay - newWordsToday()), words.filter((w) => !stateOf(w.id)).length);
   const c = counts(words);
   const day = store.data.days[todayKey()] || { rev: 0, ok: 0, bad: 0 };
   const xp = todayXp();
   const g = goal();
   const wod = wordOfDay(words);
   const hard = hardWords();
+  const cur = currentLesson();
   const cat = wod ? CATEGORIES[wod.cat] || CATEGORIES.custom : null;
 
   $view.innerHTML = `
@@ -48,13 +49,15 @@ export function viewHome() {
         ${ring(xp / g, `<b data-count="${xp}">0</b><small>/ ${g} XP</small>`)}
         <div class="hero-nums">
           <div><b data-count="${due}">0</b><span>${t('dueToday')}</span></div>
-          <div><b data-count="${newLeft}">0</b><span>${t('newToday')}</span></div>
+          <div><b data-count="${courseStats().done}">0</b><span>${t('lessonsWord')}</span></div>
           <div><b data-count="${streak()}">0</b><span>${t('streak')}</span></div>
         </div>
       </div>
-      ${due + newLeft > 0
-        ? `<a class="btn primary big shine" href="#/study">${ICON.play}<span>${t('startStudy')}</span></a>`
-        : `<p class="done-msg">${t('allDone')}</p><a class="btn big" href="#/study/more">${t('learnMore')}</a>`}
+      ${cur
+        ? `<a class="btn primary big shine" href="#/lesson/${encodeURIComponent(cur.id)}">${ICON.play}<span>${t('continuePath')}</span></a>
+           <p class="next-up muted">${unitIcon(cur.unit)} ${t('unit')} ${cur.unit.index + 1} · ${esc(unitTitle(cur.unit, lang()))} · ${t(`lt_${cur.type}`)}</p>`
+        : `<p class="done-msg">${t('allDone')}</p>`}
+      ${due ? `<a class="btn big" href="#/review">🔁 ${t('dailyReview')} <span class="pill">${due}</span></a>` : ''}
     </section>
 
     ${wod ? `
@@ -67,7 +70,7 @@ export function viewHome() {
     <section class="quick">
       <a class="card quick-item" href="#/match"><span class="q-emoji">🧩</span><b>${t('matchTitle')}</b><small class="muted">${t('matchDesc')}</small></a>
       <a class="card quick-item" href="#/quiz/listen"><span class="q-emoji">🎧</span><b>${t('qListen')}</b><small class="muted">${t('quizDesc').listen}</small></a>
-      ${hard.length ? `<a class="card quick-item hard" href="#/study/hard"><span class="q-emoji">💪</span><b>${t('hardWords')}</b><small class="muted">${t('hardDesc', hard.length)}</small></a>` : ''}
+      ${hard.length ? `<a class="card quick-item hard" href="#/review/hard"><span class="q-emoji">💪</span><b>${t('hardWords')}</b><small class="muted">${t('hardDesc', hard.length)}</small></a>` : ''}
     </section>
 
     <section class="tiles">

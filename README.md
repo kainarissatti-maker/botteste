@@ -7,7 +7,11 @@ App para aprender **alemão** usando **inglês e português** juntos, com repeti
 
 ## O que já tem
 - ~460 palavras do nível **A1**, com artigo (der/die/das em cores), plural e categoria
-- **Estudar:** cartões que viram em 3D, com repetição espaçada; arraste → Bom, ← Errei
+- **Trilha A1 estilo Duolingo:** 26 unidades e 156 lições que vão liberando em ordem
+  - Lições de palavras: palavra nova, significado, ouvir e escolher, artigo, pares, escrever
+  - Lições de frases (~120 frases): montar com blocos, traduzir, ouvir e montar, escrever, falar (microfone)
+  - Revisão da unidade; erros voltam no fim da lição; fica mais difícil a cada unidade
+- **Revisão diária:** cartões que viram em 3D, com repetição espaçada; arraste → Bom, ← Errei
 - **Quiz:** DE→PT, DE→EN, PT→DE, EN→DE, artigo, escrita, ouvir e escolher, ditado
 - **Jogo dos pares** contra o relógio, com recorde
 - **XP, meta diária e 18 conquistas**, palavra do dia e treino das palavras difíceis

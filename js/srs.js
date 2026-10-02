@@ -91,10 +91,11 @@ export function hardWords(limit = 20) {
 }
 
 // Monta a fila de estudo: revisões do dia + palavras novas (respeitando o limite diário).
-export function buildSession({ cat = null, extraNew = 0 } = {}) {
+// noNew: só revisões (as palavras novas chegam pelas lições da trilha).
+export function buildSession({ cat = null, extraNew = 0, noNew = false } = {}) {
   const filter = (w) => (!cat || w.cat === cat);
   const due = dueWords(filter);
-  const remaining = Math.max(0, store.settings.newPerDay - newWordsToday()) + extraNew;
+  const remaining = noNew ? extraNew : Math.max(0, store.settings.newPerDay - newWordsToday()) + extraNew;
   const fresh = newWords(filter, cat ? Math.max(remaining, extraNew || 10) : remaining);
   const queue = [];
   let n = 0;
