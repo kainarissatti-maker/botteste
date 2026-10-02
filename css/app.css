@@ -265,3 +265,5 @@ dialog::backdrop { background: rgb(0 0 0 / .4); }
 .chart .col { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; gap: 4px; }
 .chart i { display: block; width: 100%; max-width: 22px; min-height: 2px; background: var(--der); border-radius: 4px 4px 2px 2px; }
 .chart span { font-size: .7rem; color: var(--muted); }
+
+.warn { margin: 0; padding: 10px 12px; border-radius: 12px; background: color-mix(in srgb, var(--learning) 16%, transparent); font-size: .9rem; }

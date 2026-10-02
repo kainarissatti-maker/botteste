@@ -15,6 +15,8 @@ const DEFAULTS = {
     rate: 0.9,           // velocidade da voz
     autoplay: true,
     level: 'A1',
+    voiceDe: '',         // voz escolhida (vazio = melhor disponível)
+    voiceEn: '',
   },
 };
 

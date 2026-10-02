@@ -2,7 +2,7 @@ import { store, streak, todayKey } from './store.js';
 import { allWords, wordById, makeWord, invalidateWords, CATEGORIES, LEVELS, catLabel, hasPack } from './words.js';
 import { buildSession, review, nextInterval, formatInterval, stateOf, statusOf, quizResult, resetWord, dueWords, newWordsToday } from './srs.js';
 import { t, lang } from './i18n.js';
-import { speak, canSpeak } from './speech.js';
+import { speak, canSpeak, voicesFor, hasVoice, onVoicesChanged } from './speech.js';
 
 const $view = document.getElementById('view');
 const $nav = document.getElementById('nav');
@@ -456,7 +456,9 @@ function drawWordList() {
         </li>`).join('')}</ul>
     </section>`).join('') || `<p class="muted center">—</p>`;
 
-  $list.querySelectorAll('li[data-id]').forEach((li) => li.addEventListener('click', () => wordDetail(li.dataset.id)));
+  $list.querySelectorAll('li[data-id]').forEach((li) => li.addEventListener('click', (e) => {
+    if (!e.target.closest('[data-say]')) wordDetail(li.dataset.id);
+  }));
 }
 
 const $dialog = document.getElementById('dialog');
@@ -577,6 +579,16 @@ function viewProgress() {
 }
 
 // ---------- Ajustes ----------
+function voiceSel(key, code) {
+  const list = voicesFor(code);
+  const cur = store.settings[key];
+  return `<select data-set="${key}"><option value="">${t('voiceAuto')}${list[0] ? ` (${esc(list[0].name)})` : ''}</option>${list.map((v) =>
+    `<option value="${esc(v.voiceURI)}" ${v.voiceURI === cur ? 'selected' : ''}>${esc(v.name)} · ${esc(v.lang)}</option>`).join('')}</select>`;
+}
+
+// As vozes chegam depois que a página abre: redesenha os ajustes quando elas aparecerem.
+onVoicesChanged(() => { if (location.hash.startsWith('#/settings')) viewSettings(); });
+
 function viewSettings() {
   session = null;
   const s = store.settings;
@@ -590,7 +602,12 @@ function viewSettings() {
       <label>${t('sNew')}${sel('newPerDay', [5, 10, 15, 20, 30, 50].map((n) => [n, n]))}</label>
       <label>${t('sRate')}${sel('rate', [[0.7, '0.7×'], [0.8, '0.8×'], [0.9, '0.9×'], [1, '1×'], [1.1, '1.1×']])}</label>
       <label class="check"><input type="checkbox" data-set="autoplay" ${s.autoplay ? 'checked' : ''}> ${t('sAuto')}</label>
-      ${canSpeak() ? `<button class="btn" data-say="Hallo! Ich lerne Deutsch." data-lang="de-DE">${ICON.speaker}<span>Hallo! Ich lerne Deutsch.</span></button>` : `<p class="muted">${t('noVoice')}</p>`}
+      ${canSpeak() ? `
+        <label>${t('sVoiceDe')}${voiceSel('voiceDe', 'de-DE')}</label>
+        ${hasVoice('de-DE') ? '' : `<p class="warn">${t('noVoice')} ${t('voiceHelp')}</p>`}
+        <button class="btn" data-say="Guten Morgen! Ich lerne Deutsch." data-lang="de-DE">${ICON.speaker}<span>Guten Morgen! Ich lerne Deutsch.</span></button>
+        <label>${t('sVoiceEn')}${voiceSel('voiceEn', 'en-US')}</label>
+        <button class="btn" data-say="Good morning! I am learning German." data-lang="en-US">${ICON.speaker}<span>Good morning! I am learning German.</span></button>` : `<p class="warn">${t('noVoice')}</p>`}
     </section>
     <section class="card form">
       <h2>${t('sData')}</h2>

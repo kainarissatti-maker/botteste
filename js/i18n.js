@@ -28,6 +28,7 @@ const STR = {
     dataNote: 'Seu progresso fica salvo neste aparelho. A sincronização entre PC e celular vem numa próxima versão.',
     noVoice: 'Seu navegador não tem voz em alemão instalada.', confirmDel: 'Excluir esta palavra?', required: 'Preencha alemão, inglês e português.',
     keys: 'Atalhos: Espaço = mostrar · 1–4 = avaliar', onlyPl: 'só existe no plural',
+    sVoiceDe: 'Voz em alemão', sVoiceEn: 'Voz em inglês', voiceAuto: 'Automática', voiceHelp: 'No Windows: Configurações → Hora e idioma → Fala → Adicionar vozes → Deutsch. No Android: Configurações → Idioma → Saída de texto para fala.',
   },
   en: {
     home: 'Home', study: 'Study', quiz: 'Quiz', words: 'Words', progress: 'Progress', settings: 'Settings',
@@ -56,6 +57,7 @@ const STR = {
     dataNote: 'Your progress is saved on this device. Sync between PC and phone comes in a future version.',
     noVoice: 'Your browser has no German voice installed.', confirmDel: 'Delete this word?', required: 'Fill in German, English and Portuguese.',
     keys: 'Shortcuts: Space = show · 1–4 = rate', onlyPl: 'plural only',
+    sVoiceDe: 'German voice', sVoiceEn: 'English voice', voiceAuto: 'Automatic', voiceHelp: 'Windows: Settings → Time & language → Speech → Add voices → Deutsch. Android: Settings → Language → Text-to-speech output.',
   },
   de: {
     home: 'Start', study: 'Lernen', quiz: 'Quiz', words: 'Wörter', progress: 'Fortschritt', settings: 'Einstellungen',
@@ -84,6 +86,7 @@ const STR = {
     dataNote: 'Dein Fortschritt wird auf diesem Gerät gespeichert. Synchronisierung zwischen PC und Handy kommt bald.',
     noVoice: 'Dein Browser hat keine deutsche Stimme.', confirmDel: 'Dieses Wort löschen?', required: 'Deutsch, Englisch und Portugiesisch ausfüllen.',
     keys: 'Tasten: Leertaste = zeigen · 1–4 = bewerten', onlyPl: 'nur Plural',
+    sVoiceDe: 'Deutsche Stimme', sVoiceEn: 'Englische Stimme', voiceAuto: 'Automatisch', voiceHelp: 'Windows: Einstellungen → Zeit und Sprache → Spracherkennung → Stimmen hinzufügen → Deutsch. Android: Einstellungen → Sprache → Text-in-Sprache.',
   },
 };
 
