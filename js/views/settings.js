@@ -23,7 +23,7 @@ export function viewSettings() {
     <h1 class="title">${t('settings')}</h1>
     <section class="card form">
       <label>${t('sUi')}${sel('ui', [['pt', 'Português'], ['en', 'English'], ['de', 'Deutsch']])}</label>
-      <label>${t('sTheme')}${sel('theme', [['auto', t('themeAuto')], ['light', t('themeLight')], ['dark', t('themeDark')]])}</label>
+      <label>${t('sTheme')}${sel('theme', [['space', `🪐 ${t('sThemeSpace')}`], ['light', `☀️ ${t('themeLight')}`]])}</label>
       <label>${t('sShow')}${sel('show', [['both', t('sBoth')], ['en', t('sOnlyEn')], ['pt', t('sOnlyPt')]])}</label>
       <label>${t('sDir')}${sel('direction', [['de', t('sDirDe')], ['native', t('sDirNative')], ['mix', t('sDirMix')]])}</label>
       <div class="row">
@@ -37,10 +37,10 @@ export function viewSettings() {
       ${canSpeak() ? `
         <label>${t('sVoiceDe')}${voiceSel('voiceDe', 'de-DE')}</label>
         ${browserOnly && !hasVoice('de-DE') ? `<p class="warn">${t('noVoice')} ${t('voiceHelp')}</p>` : ''}
-        <button class="btn" data-say="Guten Morgen! Ich lerne Deutsch." data-lang="de-DE">${ICON.speaker}<span>Guten Morgen! Ich lerne Deutsch.</span></button>
         <label>${t('sVoiceEn')}${voiceSel('voiceEn', 'en-US')}</label>
         <button class="btn" data-say="Good morning! I am learning German." data-lang="en-US">${ICON.speaker}<span>Good morning! I am learning German.</span></button>
-        <label>${t('sRate')}${sel('rate', [[0.7, '0.7×'], [0.8, '0.8×'], [0.9, '0.9×'], [1, '1×'], [1.1, '1.1×'], [1.25, '1.25×']])}</label>
+        <label>${t('sRate')}${sel('speed', [['normal', t('spNormal')], ['slow', `${t('spSlow')} (${t('recommended')})`], ['slower', `🐢 ${t('spSlower')}`]])}</label>
+        <button class="btn" data-say="Guten Morgen! Ich lerne Deutsch." data-lang="de-DE">${ICON.speaker}<span>Guten Morgen! Ich lerne Deutsch.</span></button>
         <label class="check"><input type="checkbox" data-set="autoplay" ${s.autoplay ? 'checked' : ''}> ${t('sAuto')}</label>` : `<p class="warn">${t('noVoice')}</p>`}
     </section>
     <section class="card form">
@@ -52,12 +52,12 @@ export function viewSettings() {
         <button class="btn danger" id="rst">${t('reset')}</button>
       </div>
     </section>
-    <p class="muted center small">Wortschatz · v0.2.1</p>`;
+    <p class="muted center small">APIvonKAKA · v0.3</p>`;
 
   $view.querySelectorAll('[data-set]').forEach((el) => el.addEventListener('change', () => {
     const key = el.dataset.set;
     let v = el.type === 'checkbox' ? el.checked : el.value;
-    if (['newPerDay', 'rate', 'goal'].includes(key)) v = Number(v);
+    if (['newPerDay', 'goal'].includes(key)) v = Number(v);
     store.setSetting(key, v);
     if (key === 'theme') window.dispatchEvent(new Event('app:theme'));
     if (key === 'ui') { window.dispatchEvent(new Event('app:render')); checkBadges(); }

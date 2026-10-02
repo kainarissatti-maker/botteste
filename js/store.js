@@ -1,6 +1,6 @@
 // Tudo o que o app salva fica aqui. Hoje usa o armazenamento do navegador;
 // a sincronização com a nuvem (Supabase) vai se ligar neste mesmo módulo.
-const KEY = 'wortschatz.v1';
+const KEY = 'wortschatz.v1'; // nome antigo do app; mantido para não perder o progresso
 
 const DEFAULTS = {
   version: 1,
@@ -15,12 +15,12 @@ const DEFAULTS = {
     newPerDay: 10,
     show: 'both',        // traduções exibidas: both | en | pt
     direction: 'de',     // de = alemão na frente | native = tradução na frente | mix
-    rate: 1,             // velocidade da voz (1 = normal)
+    speed: 'slow',       // velocidade da voz: normal | slow | slower
     autoplay: true,
     level: 'A1',
     voiceDe: '',         // vazio = voz neural gravada; 'auto' ou id = voz do navegador
     voiceEn: '',
-    theme: 'auto',       // auto | light | dark
+    theme: 'space',      // space (roxo espacial) | light (lavanda)
     goal: 100,           // meta diária em XP
     sfx: true,           // efeitos sonoros
   },

@@ -57,7 +57,11 @@ function stopAll() {
   return false;
 }
 
-function speakBrowser(say, code, wasBusy) {
+const BROWSER_RATE = { normal: 0.95, slow: 0.75, slower: 0.6 };
+// Pastas geradas por tools/gen_audio.py para cada velocidade.
+const FOLDER = { de: { normal: 'de', slow: 'de-slow', slower: 'de-slower' }, en: { normal: 'en', slow: 'en-slow', slower: 'en-slow' } };
+
+function speakBrowser(say, code, wasBusy, speed) {
   if (!synth) return;
   // Falar logo depois de cancelar faz o Chrome cortar ou picotar o áudio; uma pausa curta resolve.
   timer = setTimeout(() => {
@@ -65,7 +69,7 @@ function speakBrowser(say, code, wasBusy) {
     u.lang = code;
     const v = pickVoice(code);
     if (v) u.voice = v;
-    u.rate = store.settings.rate * 0.9;
+    u.rate = BROWSER_RATE[speed] || 0.95;
     u.onend = u.onerror = () => { if (current === u) current = null; };
     current = u;
     synth.resume(); // destrava o Chrome quando a fila fica "pausada"
@@ -73,7 +77,17 @@ function speakBrowser(say, code, wasBusy) {
   }, wasBusy ? 120 : 30);
 }
 
-export function speak(text, code = 'de-DE') {
+function playFile(src, onFail) {
+  const a = new Audio(src);
+  let failed = false;
+  const fail = () => { if (!failed && player === a) { failed = true; onFail(); } };
+  a.onerror = fail;
+  player = a;
+  a.play().catch(fail);
+}
+
+// speed: 'normal' | 'slow' | 'slower' (padrão: o que está nos Ajustes; o botão 🐢 usa 'slower').
+export function speak(text, code = 'de-DE', speed = store.settings.speed) {
   if (!text) return;
   const say = clean(text);
   if (!say) return;
@@ -81,13 +95,14 @@ export function speak(text, code = 'de-DE') {
   const lang = code.slice(0, 2);
   const id = manifest?.[lang]?.[say];
   const useNeural = !store.settings[settingKey(code)]; // vazio = voz neural
-  if (id && useNeural) {
-    const a = new Audio(`audio/${lang}/${id}.mp3`);
-    a.playbackRate = store.settings.rate;
-    a.onerror = () => { if (player === a) speakBrowser(say, code, false); };
-    player = a;
-    a.play().catch(() => { if (player === a) speakBrowser(say, code, false); });
+  if (id && useNeural && FOLDER[lang]) {
+    const folder = FOLDER[lang][speed] || FOLDER[lang].normal;
+    // Se a versão lenta ainda não existir, toca a normal; se nada existir, usa a voz do navegador.
+    playFile(`audio/${folder}/${id}.mp3`, () => {
+      if (folder === FOLDER[lang].normal) speakBrowser(say, code, false, speed);
+      else playFile(`audio/${FOLDER[lang].normal}/${id}.mp3`, () => speakBrowser(say, code, false, speed));
+    });
     return;
   }
-  speakBrowser(say, code, wasBusy);
+  speakBrowser(say, code, wasBusy, speed);
 }

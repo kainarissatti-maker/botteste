@@ -92,7 +92,7 @@ const STR = {
 
 const MORE = {
   pt: {
-    goal: 'Meta do dia', xpToday: 'XP hoje', totalXp: 'XP total', goalDone: 'Meta do dia batida! 🎉',
+    slowListen: 'Ouvir bem devagar', spNormal: 'Normal', spSlow: 'Devagar', spSlower: 'Bem devagar', recommended: 'recomendado', tagline: '(ALEMÃO PARA IDIOTAS)', sThemeSpace: 'Espacial roxo', goal: 'Meta do dia', xpToday: 'XP hoje', totalXp: 'XP total', goalDone: 'Meta do dia batida! 🎉',
     wordOfDay: 'Palavra do dia', hardWords: 'Palavras difíceis', hardDesc: (n) => `${n} palavras que você mais erra`,
     train: 'Treinar', play: 'Jogar', matchTitle: 'Jogo dos pares', matchDesc: 'Ligue cada palavra em alemão à tradução',
     qListen: 'Ouvir e escolher', qDictation: 'Ditado: ouvir e escrever', replay: 'Ouvir de novo',
@@ -107,7 +107,7 @@ const MORE = {
       listen: 'Escute e escolha a palavra certa', dictation: 'Escute e escreva o que ouviu' },
   },
   en: {
-    goal: 'Daily goal', xpToday: 'XP today', totalXp: 'Total XP', goalDone: 'Daily goal reached! 🎉',
+    slowListen: 'Listen very slowly', spNormal: 'Normal', spSlow: 'Slow', spSlower: 'Very slow', recommended: 'recommended', tagline: '(GERMAN FOR IDIOTS)', sThemeSpace: 'Purple space', goal: 'Daily goal', xpToday: 'XP today', totalXp: 'Total XP', goalDone: 'Daily goal reached! 🎉',
     wordOfDay: 'Word of the day', hardWords: 'Difficult words', hardDesc: (n) => `${n} words you miss the most`,
     train: 'Practice', play: 'Play', matchTitle: 'Pairs game', matchDesc: 'Match each German word to its translation',
     qListen: 'Listen and choose', qDictation: 'Dictation: listen and write', replay: 'Listen again',
@@ -122,7 +122,7 @@ const MORE = {
       listen: 'Listen and pick the right word', dictation: 'Listen and type what you heard' },
   },
   de: {
-    goal: 'Tagesziel', xpToday: 'XP heute', totalXp: 'XP gesamt', goalDone: 'Tagesziel erreicht! 🎉',
+    slowListen: 'Ganz langsam anhören', spNormal: 'Normal', spSlow: 'Langsam', spSlower: 'Sehr langsam', recommended: 'empfohlen', tagline: '(DEUTSCH FÜR IDIOTEN)', sThemeSpace: 'Lila Weltraum', goal: 'Tagesziel', xpToday: 'XP heute', totalXp: 'XP gesamt', goalDone: 'Tagesziel erreicht! 🎉',
     wordOfDay: 'Wort des Tages', hardWords: 'Schwierige Wörter', hardDesc: (n) => `${n} Wörter, die du oft falsch hast`,
     train: 'Üben', play: 'Spielen', matchTitle: 'Paare finden', matchDesc: 'Verbinde jedes deutsche Wort mit der Übersetzung',
     qListen: 'Hören und wählen', qDictation: 'Diktat: hören und schreiben', replay: 'Nochmal hören',

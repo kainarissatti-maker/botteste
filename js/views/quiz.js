@@ -4,7 +4,7 @@ import { stateOf, quizResult } from '../srs.js';
 import { addXp, checkBadges, XP } from '../gamify.js';
 import { t } from '../i18n.js';
 import { speak } from '../speech.js';
-import { $view, esc, pct, shuffle, deHtml, trHtml, plHtml, sayBtn, ICON } from '../ui.js';
+import { $view, esc, pct, shuffle, deHtml, trHtml, plHtml, sayBtn, sayBoth, ICON } from '../ui.js';
 import { sfx, haptic, floatText, confetti, animateIn } from '../fx.js';
 
 const MODES = ['dePt', 'deEn', 'ptDe', 'enDe', 'art', 'write', 'listen', 'dictation'];
@@ -83,11 +83,11 @@ function drawQuestion() {
   let prompt = '';
   let body = '';
 
-  if (mode === 'dePt' || mode === 'deEn') prompt = `<div class="de-word">${deHtml(w)} ${sayBtn(w.de)}</div>`;
+  if (mode === 'dePt' || mode === 'deEn') prompt = `<div class="de-word">${deHtml(w)} ${sayBoth(w.de)}</div>`;
   else if (mode === 'ptDe') prompt = `<div class="q-native"><span class="tag">PT</span>${esc(w.pt)}</div>`;
   else if (mode === 'enDe') prompt = `<div class="q-native"><span class="tag">EN</span>${esc(w.en)}</div>`;
   else if (mode === 'art') prompt = `<div class="de-word"><span class="blank">___</span> ${esc(w.base)} ${sayBtn(w.de)}</div><div class="trs">${trHtml(w, { speakers: false })}</div>`;
-  else if (mode === 'listen' || mode === 'dictation') prompt = `<button class="play-big" id="playq" aria-label="${esc(t('replay'))}">${ICON.speaker}</button><small class="muted">${t('replay')}</small>`;
+  else if (mode === 'listen' || mode === 'dictation') prompt = `<div class="play-row"><button class="play-big" id="playq" aria-label="${esc(t('replay'))}">${ICON.speaker}</button><button class="play-slow" id="playslow" aria-label="${esc(t('slowListen'))}">🐢</button></div><small class="muted">${t('replay')}</small>`;
   else prompt = `<div class="trs big">${trHtml(w, { speakers: false })}</div>`;
 
   if (mode === 'art') {
@@ -111,6 +111,7 @@ function drawQuestion() {
     </div>`;
 
   document.getElementById('playq')?.addEventListener('click', () => speak(w.de));
+  document.getElementById('playslow')?.addEventListener('click', () => speak(w.de, 'de-DE', 'slower'));
   if (mode === 'listen' || mode === 'dictation' || (store.settings.autoplay && ['dePt', 'deEn'].includes(mode))) speak(w.de);
 
   $q.querySelectorAll('.opt').forEach((b) => b.addEventListener('click', () => {
@@ -168,7 +169,7 @@ function answer(ok, el) {
   document.getElementById('feedback').innerHTML = `
     <div class="card feedback slide-up ${ok ? 'ok' : 'bad'}">
       <b>${ok ? `✓ ${t('correct')}` : `✗ ${t('wrong')}`}</b>
-      <div class="de-word sm">${deHtml(w)} ${sayBtn(w.de)}</div>${plHtml(w)}
+      <div class="de-word sm">${deHtml(w)} ${sayBoth(w.de)}</div>${plHtml(w)}
       <div class="trs">${trHtml(w)}</div>
     </div>
     <button class="btn primary big slide-up" id="next">${t('next')}</button>`;

@@ -15,7 +15,12 @@ EXTRA = {
     'en': ['Good morning! I am learning German.'],
 }
 VOICES = {'de': 'de_DE-thorsten-high', 'en': 'en_US-lessac-high'}
-SPEED = {'de': 1.12, 'en': 1.0}  # length_scale > 1 = um pouco mais devagar
+# Pastas de saída e velocidade (length_scale > 1 = mais devagar). Gravar devagar de verdade
+# soa muito melhor do que acelerar/desacelerar o áudio no navegador.
+VARIANTS = {
+    'de': {'de': 1.12, 'de-slow': 1.55, 'de-slower': 2.0},
+    'en': {'en': 1.0, 'en-slow': 1.4},
+}
 
 
 def clean(text):
@@ -70,15 +75,17 @@ def main():
     texts = collect()
     manifest = {}
     for lang, items in texts.items():
-        folder = OUT / lang
-        folder.mkdir(parents=True, exist_ok=True)
         manifest[lang] = {t: file_id(t) for t in items}
-        jobs = [(t, str(folder / f'{file_id(t)}.mp3'), SPEED[lang]) for t in items if not (folder / f'{file_id(t)}.mp3').exists()]
-        print(f'{lang}: {len(items)} textos, {len(jobs)} para gerar', flush=True)
+        jobs = []
+        for name, speed in VARIANTS[lang].items():
+            folder = OUT / name
+            folder.mkdir(parents=True, exist_ok=True)
+            jobs += [(t, str(folder / f'{file_id(t)}.mp3'), speed) for t in items if not (folder / f'{file_id(t)}.mp3').exists()]
+        print(f'{lang}: {len(items)} textos, {len(jobs)} arquivos para gerar', flush=True)
         model = str(Path(args.voices) / f'{VOICES[lang]}.onnx')
         with ProcessPoolExecutor(args.workers, initializer=_init, initargs=(model,)) as ex:
             for i, _ in enumerate(ex.map(_synth, jobs, chunksize=8), 1):
-                if i % 50 == 0:
+                if i % 100 == 0:
                     print(f'  {lang} {i}/{len(jobs)}', flush=True)
     (OUT / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     print('ok')

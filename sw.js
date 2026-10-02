@@ -1,5 +1,5 @@
 // Rede primeiro (você sempre vê a versão mais nova); sem internet, usa o que ficou guardado.
-const CACHE = 'wortschatz-v2';
+const CACHE = 'wortschatz-v3';
 
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (e) => e.waitUntil((async () => {

@@ -24,6 +24,7 @@ function renderNav(active) {
   gear.innerHTML = ICON.gear;
   gear.classList.toggle('active', active === 'settings');
   gear.setAttribute('aria-label', t('settings'));
+  document.getElementById('tagline').textContent = t('tagline');
   updateStreak();
 }
 
@@ -49,10 +50,11 @@ function render() {
   stagger($view);
 }
 
+// Padrão: roxo espacial. Só o tema claro (lavanda) muda as cores.
 function applyTheme() {
-  const th = store.settings.theme;
-  if (th === 'light' || th === 'dark') document.documentElement.dataset.theme = th;
+  if (store.settings.theme === 'light') document.documentElement.dataset.theme = 'light';
   else delete document.documentElement.dataset.theme;
+  document.querySelector('meta[name="theme-color"]').content = store.settings.theme === 'light' ? '#f4f0ff' : '#0a0520';
 }
 
 window.addEventListener('hashchange', render);
@@ -65,7 +67,7 @@ document.addEventListener('click', (e) => {
   if (b) {
     e.stopPropagation();
     b.classList.remove('speaking'); void b.offsetWidth; b.classList.add('speaking');
-    speak(b.dataset.say, b.dataset.lang);
+    speak(b.dataset.say, b.dataset.lang, b.dataset.speed || undefined);
     return;
   }
   // Link para a tela atual: recarrega a tela (ex.: "aprender mais" duas vezes seguidas).

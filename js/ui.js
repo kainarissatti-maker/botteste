@@ -29,6 +29,12 @@ export function sayBtn(text, code = 'de-DE', cls = '') {
   return `<button class="icon-btn ${cls}" data-say="${esc(text)}" data-lang="${code}" aria-label="${esc(t('listen'))}">${ICON.speaker}</button>`;
 }
 
+// Alto-falante + tartaruga (bem devagar), para a palavra principal em alemão.
+export function sayBoth(text, code = 'de-DE') {
+  if (!canSpeak()) return '';
+  return `<span class="say-pair">${sayBtn(text, code)}<button class="icon-btn turtle" data-say="${esc(text)}" data-lang="${code}" data-speed="slower" aria-label="${esc(t('slowListen'))}" title="${esc(t('slowListen'))}">🐢</button></span>`;
+}
+
 export function deHtml(w, { withArt = true } = {}) {
   if (!w.art || !withArt) return esc(w.art ? w.base : w.de);
   return `<span class="art art-${w.art}">${w.art}</span> ${esc(w.base)}`;

@@ -3,20 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Wortschatz</title>
+<title>APIvonKAKA — Alemão para idiotas</title>
 <meta name="description" content="Aprenda alemão com inglês e português juntos, com repetição espaçada.">
-<meta name="theme-color" content="#f7f5f0" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#16150f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0a0520">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="APIvonKAKA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+  <div class="nebula" aria-hidden="true"><i></i><i></i><i></i></div>
+  <canvas id="stars" aria-hidden="true"></canvas>
   <header class="top">
-    <a class="brand" href="#/home"><span class="flag"><i></i><i></i><i></i></span>Wortschatz</a>
+    <a class="brand" href="#/home">
+      <span class="planet" aria-hidden="true"><i></i></span>
+      <span class="brand-text"><b>APIvonKAKA</b><small id="tagline">(ALEMÃO PARA IDIOTAS)</small></span>
+    </a>
     <div class="top-actions">
       <span class="streak" id="streak"></span>
       <a class="icon-btn" id="gear" href="#/settings" aria-label="Ajustes"></a>
@@ -25,6 +33,7 @@
   <nav class="nav" id="nav"></nav>
   <main id="view" class="view"></main>
   <dialog id="dialog"></dialog>
+  <script type="module" src="js/space.js"></script>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

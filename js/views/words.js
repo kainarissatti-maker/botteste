@@ -2,7 +2,7 @@ import { store } from '../store.js';
 import { allWords, wordById, makeWord, invalidateWords, CATEGORIES, LEVELS, catLabel } from '../words.js';
 import { stateOf, statusOf, resetWord } from '../srs.js';
 import { t, lang } from '../i18n.js';
-import { $view, esc, deHtml, trHtml, plHtml, sayBtn, ICON, openDialog, closeDialog, locale } from '../ui.js';
+import { $view, esc, deHtml, trHtml, plHtml, sayBtn, sayBoth, ICON, openDialog, closeDialog, locale } from '../ui.js';
 import { toast } from '../fx.js';
 
 const wf = { q: '', level: '', cat: '', status: '' };
@@ -83,7 +83,7 @@ export function wordDetail(id) {
   openDialog(`
     <div class="flash-meta"><span class="chip">${c.icon} ${esc(catLabel(w.cat, lang()))}</span><span class="chip">${w.level}</span>
       ${w.cognate ? `<span class="chip cog">≈ EN · ${t('cognate')}</span>` : ''}</div>
-    <div class="de-word">${deHtml(w)} ${sayBtn(w.de)}</div>${plHtml(w)}
+    <div class="de-word">${deHtml(w)} ${sayBoth(w.de)}</div>${plHtml(w)}
     <div class="trs">${trHtml(w)}</div>
     <dl class="meta">
       <dt>${t('status')}</dt><dd><span class="dot ${status}"></span> ${STATUS_LABEL()[status]}</dd>

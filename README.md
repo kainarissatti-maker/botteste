@@ -1,4 +1,5 @@
-# Wortschatz 🇩🇪 🇬🇧 🇧🇷
+# 🪐 APIvonKAKA
+**(ALEMÃO PARA IDIOTAS)** 🇩🇪 🇬🇧 🇧🇷
 
 App para aprender **alemão** usando **inglês e português** juntos, com repetição espaçada (estilo Anki).
 
@@ -12,8 +13,8 @@ App para aprender **alemão** usando **inglês e português** juntos, com repeti
 - **XP, meta diária e 18 conquistas**, palavra do dia e treino das palavras difíceis
 - **Palavras:** busca, filtros por nível/categoria/situação e suas próprias palavras
 - **Progresso:** mapa de atividade, conquistas, por nível e por categoria
-- **Áudio com voz neural natural** (Piper: Thorsten em alemão, Lessac em inglês), com a voz do navegador como reserva
-- Tema claro/escuro, efeitos sonoros e animações (respeita "reduzir movimento" do sistema)
+- **Áudio com voz neural natural** (Piper: Thorsten em alemão, Lessac em inglês) em 3 velocidades gravadas (normal, devagar, bem devagar) e botão 🐢; a voz do navegador fica como reserva
+- Tema **roxo espacial** (estrelas animadas, nebulosa, estrelas cadentes) ou lavanda clara, efeitos sonoros e animações (respeita "reduzir movimento" do sistema)
 - Interface em português, inglês ou alemão
 - Funciona offline e pode ser instalado na tela inicial (PWA)
 

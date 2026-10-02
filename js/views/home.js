@@ -3,7 +3,7 @@ import { allWords, LEVELS, hasPack, CATEGORIES, catLabel } from '../words.js';
 import { stateOf, dueWords, newWordsToday, counts, hardWords } from '../srs.js';
 import { todayXp, goal } from '../gamify.js';
 import { t, lang } from '../i18n.js';
-import { $view, esc, pct, deHtml, trHtml, sayBtn, stackBar, ICON } from '../ui.js';
+import { $view, esc, pct, deHtml, trHtml, sayBoth, stackBar, ICON } from '../ui.js';
 import { animateIn } from '../fx.js';
 
 export function levelRow(lv, words) {
@@ -14,8 +14,10 @@ export function levelRow(lv, words) {
 }
 
 export function ring(p, inner) {
-  return `<div class="ring-wrap"><svg class="ring" viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="52"/>
-    <circle class="ring-fg" cx="60" cy="60" r="52" data-p="${p}"/></svg><div class="ring-in">${inner}</div></div>`;
+  return `<div class="ring-wrap"><svg class="ring" viewBox="0 0 120 120">
+    <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset=".55" stop-color="#e879f9"/><stop offset="1" stop-color="#fbbf24"/></linearGradient></defs>
+    <circle class="ring-bg" cx="60" cy="60" r="52"/>
+    <circle class="ring-fg" cx="60" cy="60" r="52" data-p="${p}"/></svg><span class="orbit"><i></i></span><div class="ring-in">${inner}</div></div>`;
 }
 
 // Mesma palavra o dia todo, muda a cada dia.
@@ -58,7 +60,7 @@ export function viewHome() {
     ${wod ? `
     <section class="card wod" data-open="${esc(wod.id)}">
       <div class="wod-head"><span class="chip">✨ ${t('wordOfDay')}</span><span class="chip">${cat.icon} ${esc(catLabel(wod.cat, lang()))}</span></div>
-      <div class="de-word sm">${deHtml(wod)} ${sayBtn(wod.de)}</div>
+      <div class="de-word sm">${deHtml(wod)} ${sayBoth(wod.de)}</div>
       <div class="trs left">${trHtml(wod)}</div>
     </section>` : ''}
 
