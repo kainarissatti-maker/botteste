@@ -24,6 +24,7 @@ const DEFAULTS = {
     theme: 'space',      // space (roxo espacial) | light (lavanda)
     goal: 100,           // meta diária em XP
     sfx: true,           // efeitos sonoros
+    pron: true,          // mostrar a pronúncia aportuguesada por sílabas
   },
 };
 

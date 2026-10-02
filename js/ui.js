@@ -2,6 +2,7 @@
 import { store } from './store.js';
 import { t } from './i18n.js';
 import { canSpeak } from './speech.js';
+import { pron } from './pron.js';
 
 export const $view = document.getElementById('view');
 
@@ -67,3 +68,9 @@ export function closeDialog() { if ($dialog.open) $dialog.close(); }
 $dialog.addEventListener('click', (e) => { if (e.target === $dialog || e.target.closest('[data-close]')) $dialog.close(); });
 
 export const go = (hash) => { if (location.hash === hash) window.dispatchEvent(new Event('app:render')); else location.hash = hash; };
+
+// Pronúncia aportuguesada por sílabas, embaixo do alemão (pode ser desligada nos Ajustes).
+export function pronHtml(text) {
+  if (!store.settings.pron) return '';
+  return `<div class="pron" title="${esc(t('pronTip'))}">🗣️ ${esc(pron(text))}</div>`;
+}

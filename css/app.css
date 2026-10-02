@@ -670,3 +670,19 @@ body.focus { padding-bottom: 24px; }
 .opt:disabled.ok, .opt:disabled.bad { opacity: 1; }
 .opt.bad { border-color: var(--die); background: var(--bad-bg); }
 .tok:disabled { cursor: default; }
+
+/* v0.5 — pronúncia aportuguesada */
+.pron { font-size: .95rem; font-weight: 600; letter-spacing: .02em; color: #f0abfc; opacity: .95; margin-top: -2px; }
+:root[data-theme="light"] .pron { color: #a21caf; }
+.pron.big { font-size: 1.3rem; margin-top: 4px; }
+.pron.inline { display: block; margin-top: 4px; }
+.fb-ans .pron { font-size: .9rem; margin: 2px 0; }
+.rules { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+.rule { margin: 0; animation: rise .35s var(--ease) both; animation-delay: calc(var(--i, 0) * 30ms); }
+.rule-head { display: flex; align-items: baseline; gap: 10px; font-size: 1.25rem; }
+.rule-k { font-family: "Orbitron", "Space Grotesk", sans-serif; }
+.rule-arrow { color: var(--muted); }
+.rule-v { color: #fde68a; }
+:root[data-theme="light"] .rule-v { color: #b45309; }
+.rule p { margin: 6px 0 8px; font-size: .9rem; }
+.de-ex { font-weight: 700; font-size: 1.05rem; }

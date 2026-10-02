@@ -26,6 +26,7 @@ export function viewPath() {
       <div class="path-actions">
         ${cur ? `<a class="btn primary shine" href="#/lesson/${encodeURIComponent(cur.id)}">▶ ${t('continue')}</a>` : ''}
         <a class="btn" href="#/review">🔁 ${t('dailyReview')}${due ? ` <span class="pill">${due}</span>` : ''}</a>
+        <a class="btn" href="#/sounds">🗣️ ${t('soundsTitle')}</a>
       </div>
     </section>
     ${units.map((u) => {

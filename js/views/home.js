@@ -4,7 +4,7 @@ import { stateOf, dueWords, newWordsToday, counts, hardWords } from '../srs.js';
 import { todayXp, goal } from '../gamify.js';
 import { currentLesson, unitTitle, unitIcon, courseStats } from '../course.js';
 import { t, lang } from '../i18n.js';
-import { $view, esc, pct, deHtml, trHtml, sayBoth, stackBar, ICON } from '../ui.js';
+import { $view, esc, pct, deHtml, trHtml, sayBoth, pronHtml, stackBar, ICON } from '../ui.js';
 import { animateIn } from '../fx.js';
 
 export function levelRow(lv, words) {
@@ -63,7 +63,7 @@ export function viewHome() {
     ${wod ? `
     <section class="card wod" data-open="${esc(wod.id)}">
       <div class="wod-head"><span class="chip">✨ ${t('wordOfDay')}</span><span class="chip">${cat.icon} ${esc(catLabel(wod.cat, lang()))}</span></div>
-      <div class="de-word sm">${deHtml(wod)} ${sayBoth(wod.de)}</div>
+      <div class="de-word sm">${deHtml(wod)} ${sayBoth(wod.de)}</div>${pronHtml(wod.de)}
       <div class="trs left">${trHtml(wod)}</div>
     </section>` : ''}
 

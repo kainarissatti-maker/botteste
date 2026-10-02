@@ -13,10 +13,11 @@ import { viewMatch } from './views/match.js';
 import { viewWords, wordDetail } from './views/words.js';
 import { viewProgress } from './views/progress.js';
 import { viewSettings } from './views/settings.js';
+import { viewSounds } from './views/sounds.js';
 
 const $nav = document.getElementById('nav');
-const ROUTES = { home: viewHome, study: viewPath, review: viewStudy, lesson: viewLesson, quiz: viewQuiz, match: viewMatch, words: viewWords, progress: viewProgress, settings: viewSettings };
-const NAV_OF = { match: 'quiz', review: 'study', lesson: 'study' }; // telas que ficam "dentro" de outra aba
+const ROUTES = { home: viewHome, study: viewPath, review: viewStudy, lesson: viewLesson, quiz: viewQuiz, match: viewMatch, words: viewWords, progress: viewProgress, settings: viewSettings, sounds: viewSounds };
+const NAV_OF = { match: 'quiz', review: 'study', lesson: 'study', sounds: 'study' }; // telas que ficam "dentro" de outra aba
 let cleanup = null;
 
 function renderNav(active) {

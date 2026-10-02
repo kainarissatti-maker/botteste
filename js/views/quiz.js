@@ -4,7 +4,7 @@ import { stateOf, quizResult } from '../srs.js';
 import { addXp, checkBadges, XP } from '../gamify.js';
 import { t } from '../i18n.js';
 import { speak } from '../speech.js';
-import { $view, esc, pct, shuffle, deHtml, trHtml, plHtml, sayBtn, sayBoth, ICON } from '../ui.js';
+import { $view, esc, pct, shuffle, deHtml, trHtml, plHtml, sayBtn, sayBoth, pronHtml, ICON } from '../ui.js';
 import { sfx, haptic, floatText, confetti, animateIn } from '../fx.js';
 
 const MODES = ['dePt', 'deEn', 'ptDe', 'enDe', 'art', 'write', 'listen', 'dictation'];
@@ -169,7 +169,7 @@ function answer(ok, el) {
   document.getElementById('feedback').innerHTML = `
     <div class="card feedback slide-up ${ok ? 'ok' : 'bad'}">
       <b>${ok ? `✓ ${t('correct')}` : `✗ ${t('wrong')}`}</b>
-      <div class="de-word sm">${deHtml(w)} ${sayBoth(w.de)}</div>${plHtml(w)}
+      <div class="de-word sm">${deHtml(w)} ${sayBoth(w.de)}</div>${pronHtml(w.de)}${plHtml(w)}
       <div class="trs">${trHtml(w)}</div>
     </div>
     <button class="btn primary big slide-up" id="next">${t('next')}</button>`;

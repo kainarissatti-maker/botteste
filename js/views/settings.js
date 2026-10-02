@@ -41,7 +41,9 @@ export function viewSettings() {
         <button class="btn" data-say="Good morning! I am learning German." data-lang="en-US">${ICON.speaker}<span>Good morning! I am learning German.</span></button>
         <label>${t('sRate')}${sel('speed', [['normal', t('spNormal')], ['slow', `${t('spSlow')} (${t('recommended')})`], ['slower', `🐢 ${t('spSlower')}`]])}</label>
         <button class="btn" data-say="Guten Morgen! Ich lerne Deutsch." data-lang="de-DE">${ICON.speaker}<span>Guten Morgen! Ich lerne Deutsch.</span></button>
-        <label class="check"><input type="checkbox" data-set="autoplay" ${s.autoplay ? 'checked' : ''}> ${t('sAuto')}</label>` : `<p class="warn">${t('noVoice')}</p>`}
+        <label class="check"><input type="checkbox" data-set="autoplay" ${s.autoplay ? 'checked' : ''}> ${t('sAuto')}</label>
+        <label class="check"><input type="checkbox" data-set="pron" ${s.pron ? 'checked' : ''}> 🗣️ ${t('sPron')}</label>
+        <a class="btn" href="#/sounds">🗣️ ${t('soundsTitle')}</a>` : `<p class="warn">${t('noVoice')}</p>`}
     </section>
     <section class="card form">
       <h2>${t('sData')}</h2>
@@ -52,7 +54,7 @@ export function viewSettings() {
         <button class="btn danger" id="rst">${t('reset')}</button>
       </div>
     </section>
-    <p class="muted center small">APIvonKAKA · v0.4</p>`;
+    <p class="muted center small">APIvonKAKA · v0.5</p>`;
 
   $view.querySelectorAll('[data-set]').forEach((el) => el.addEventListener('change', () => {
     const key = el.dataset.set;

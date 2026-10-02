@@ -4,7 +4,7 @@ import { buildSession, review, nextInterval, formatInterval, stateOf, hardWords 
 import { addXp, checkBadges, XP } from '../gamify.js';
 import { t, lang } from '../i18n.js';
 import { speak } from '../speech.js';
-import { $view, esc, pct, deHtml, trHtml, plHtml, sayBoth } from '../ui.js';
+import { $view, esc, pct, deHtml, trHtml, plHtml, sayBoth, pronHtml } from '../ui.js';
 import { sfx, haptic, floatText, confetti, reduced, animateIn } from '../fx.js';
 
 let S = null;
@@ -43,9 +43,9 @@ function faceHtml(w, side) {
     ${!st ? `<span class="chip new-chip">${t('newWord')}</span>` : ''}
     ${side === 'back' && w.cognate ? `<span class="chip cog">≈ EN · ${t('cognate')}</span>` : ''}</div>`;
   if (side === 'back') {
-    return `${meta}<div class="de-word">${deHtml(w)} ${sayBoth(w.de)}</div>${plHtml(w)}<div class="trs">${trHtml(w)}</div>`;
+    return `${meta}<div class="de-word">${deHtml(w)} ${sayBoth(w.de)}</div>${pronHtml(w.de)}${plHtml(w)}<div class="trs">${trHtml(w)}</div>`;
   }
-  if (S.front === 'de') return `${meta}<div class="de-word">${deHtml(w)} ${sayBoth(w.de)}</div><div class="tap-hint">${t('tapToFlip')}</div>`;
+  if (S.front === 'de') return `${meta}<div class="de-word">${deHtml(w)} ${sayBoth(w.de)}</div>${pronHtml(w.de)}<div class="tap-hint">${t('tapToFlip')}</div>`;
   return `${meta}<div class="trs big">${trHtml(w)}</div><div class="de-word placeholder">?</div>`;
 }
 

@@ -6,7 +6,7 @@ import { lessonById, isUnlocked, completeLesson, allSentences, currentLesson, un
 import { addXp, checkBadges, XP } from '../gamify.js';
 import { t, lang } from '../i18n.js';
 import { speak } from '../speech.js';
-import { $view, esc, pct, shuffle, deHtml, trHtml, plHtml, sayBoth, ICON } from '../ui.js';
+import { $view, esc, pct, shuffle, deHtml, trHtml, plHtml, sayBoth, pronHtml, ICON } from '../ui.js';
 import { sfx, haptic, confetti, toast, floatText, animateIn } from '../fx.js';
 
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -230,10 +230,10 @@ const RENDER = {
   intro: ({ w }) => `${head(`✨ ${t('exIntro')}`)}
     <section class="card flash intro-card pop-in">
       ${w.cognate ? `<div class="flash-meta"><span class="chip cog">≈ EN · ${t('cognate')}</span></div>` : ''}
-      <div class="de-word">${deHtml(w)} ${sayBoth(w.de)}</div>${plHtml(w)}<div class="trs">${trHtml(w)}</div>
+      <div class="de-word">${deHtml(w)} ${sayBoth(w.de)}</div>${pronHtml(w.de)}${plHtml(w)}<div class="trs">${trHtml(w)}</div>
     </section>`,
   meaning: (ex) => `${head(t('exMeaning'))}
-    <div class="prompt"><div class="de-word">${deHtml(ex.w)} ${sayBoth(ex.w.de)}</div></div>
+    <div class="prompt"><div class="de-word">${deHtml(ex.w)} ${sayBoth(ex.w.de)}</div>${pronHtml(ex.w.de)}</div>
     ${wordOpts(ex.opts ||= shuffle([ex.w, ...distractorWords(ex.w)]), (o) => `${tag(ex.nat)} ${esc(o[ex.nat])}`)}`,
   toGerman: (ex) => `${head(t('exToGerman'))}
     <div class="prompt"><div class="q-native">${tag(ex.nat)} ${esc(ex.w[ex.nat])}</div></div>
@@ -254,12 +254,12 @@ const RENDER = {
   buildDe: (ex) => `${head(t('exBuildDe'))}
     <div class="prompt"><div class="q-native sentence">${tag(ex.nat)} ${esc(ex.s[ex.nat])}</div></div>${builder()}`,
   buildNative: (ex) => `${head(t('exBuildNative'))}
-    <div class="prompt"><div class="de-sentence">${esc(ex.s.de)} ${sayBoth(ex.s.de)}</div></div>${builder()}`,
+    <div class="prompt"><div class="de-sentence">${esc(ex.s.de)} ${sayBoth(ex.s.de)}</div>${pronHtml(ex.s.de)}</div>${builder()}`,
   listenBuild: (ex) => `${head(t('exListenBuild'))}<div class="prompt">${playBtns(ex.s.de)}</div>${builder()}`,
   typeSentence: (ex) => `${head(t('exTypeSentence'))}
     <div class="prompt"><div class="q-native sentence">${tag(ex.nat)} ${esc(ex.s[ex.nat])}</div></div>${typeBox()}`,
   speak: (ex) => `${head(`🎙️ ${t('exSpeak')}`)}
-    <div class="prompt"><div class="de-sentence">${esc(ex.s.de)} ${sayBoth(ex.s.de)}</div>
+    <div class="prompt"><div class="de-sentence">${esc(ex.s.de)} ${sayBoth(ex.s.de)}</div>${pronHtml(ex.s.de)}
       <div class="trs">${tag(ex.nat)} ${esc(ex.s[ex.nat])}</div></div>
     <button class="mic" id="mic"><span>🎙️</span><small id="micLabel">${t('tapToSpeak')}</small></button>
     <p class="heard muted" id="heard"></p>`,
@@ -335,8 +335,8 @@ const BIND = {
   speak: (ex, $ex) => bindSpeak(ex, $ex),
 };
 
-const answerWord = (w) => `${deHtml(w)} <small class="muted">· ${esc(w.pt)} · ${esc(w.en)}</small>`;
-const answerSentence = (s) => `${esc(s.de)}<br><small class="muted">${esc(s.pt)} · ${esc(s.en)}</small>`;
+const answerWord = (w) => `${deHtml(w)} <small class="muted">· ${esc(w.pt)} · ${esc(w.en)}</small>${pronHtml(w.de)}`;
+const answerSentence = (s) => `${esc(s.de)}${pronHtml(s.de)}<small class="muted">${esc(s.pt)} · ${esc(s.en)}</small>`;
 
 function markOpts(isRight) {
   $view.querySelectorAll('.opt').forEach((b) => {
