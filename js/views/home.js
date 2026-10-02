@@ -68,6 +68,7 @@ export function viewHome() {
     </section>` : ''}
 
     <section class="quick">
+      <a class="card quick-item accent" href="#/build"><span class="q-emoji">🧱</span><b>${t('buildTitle')}</b><small class="muted">${t('orderTitle')}</small></a>
       <a class="card quick-item" href="#/match"><span class="q-emoji">🧩</span><b>${t('matchTitle')}</b><small class="muted">${t('matchDesc')}</small></a>
       <a class="card quick-item" href="#/quiz/listen"><span class="q-emoji">🎧</span><b>${t('qListen')}</b><small class="muted">${t('quizDesc').listen}</small></a>
       ${hard.length ? `<a class="card quick-item hard" href="#/review/hard"><span class="q-emoji">💪</span><b>${t('hardWords')}</b><small class="muted">${t('hardDesc', hard.length)}</small></a>` : ''}

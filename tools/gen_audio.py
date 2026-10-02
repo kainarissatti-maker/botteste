@@ -29,6 +29,21 @@ def clean(text):
     return re.sub(r'\s+', ' ', text).strip()
 
 
+COMMA = {'aber', 'denn', 'weil', 'dass', 'wenn', 'obwohl'}
+
+
+def build_text(line):
+    # Igual a buildText() em js/views/build.js.
+    parts = [p.strip() for p in line.strip().split('¦')]
+    out = ''
+    for i, chunk in enumerate(parts[0].split(' / ')):
+        role, txt = chunk.split('=', 1)
+        sep = '' if i == 0 else (', ' if role == 'C' and txt.lower() in COMMA else ' ')
+        out += sep + txt
+    out += '?' if parts[1].endswith('?') else '.'
+    return out, parts[1]
+
+
 def file_id(text):
     return hashlib.sha1(text.encode('utf-8')).hexdigest()[:12]
 
@@ -39,6 +54,11 @@ def collect():
         for line in pack.read_text(encoding='utf-8').splitlines():
             parts = line.strip().split('|')
             if line.lstrip().startswith('//'):
+                continue
+            if '¦' in line:        # montar frases: "S=Ich / V=lerne ¦ inglês ¦ português"
+                de, en = build_text(line)
+                texts['de'].add(clean(de))
+                texts['en'].add(clean(en))
                 continue
             if len(parts) == 4:    # palavra: alemão|plural|inglês|português
                 texts['de'].add(clean(parts[0]))

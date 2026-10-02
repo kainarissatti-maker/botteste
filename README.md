@@ -11,6 +11,8 @@ App para aprender **alemão** usando **inglês e português** juntos, com repeti
   - Lições de palavras: palavra nova, significado, ouvir e escolher, artigo, pares, escrever
   - Lições de frases (~120 frases): montar com blocos, traduzir, ouvir e montar, escrever, falar (microfone)
   - Revisão da unidade; erros voltam no fim da lição; fica mais difícil a cada unidade
+- **Montar frases (aba Frases):** 12 níveis de estrutura com blocos coloridos por função — conjugação, verbo na 2ª posição, perguntas, negação, modais, verbos separáveis, TeKaMoLo, Perfekt, und/aber/denn, weil/dass/wenn e frases longas; exercícios de ordenar, escrever, falar e "aumente a frase"
+- **Guia de pronúncia:** pronúncia aportuguesada por sílabas, 22 regras de leitura e 13 sons que não existem em português, com pares mínimos e treino de ouvido
 - **Revisão diária:** cartões que viram em 3D, com repetição espaçada; arraste → Bom, ← Errei
 - **Quiz:** DE→PT, DE→EN, PT→DE, EN→DE, artigo, escrita, ouvir e escolher, ditado
 - **Jogo dos pares** contra o relógio, com recorde

@@ -719,3 +719,40 @@ body.focus { padding-bottom: 24px; }
 .how { text-align: left; margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; line-height: 1.4; }
 .dialog-body .ex-row { justify-content: center; }
 .dialog-body .warn { text-align: left; }
+
+/* v0.7 — montar frases */
+.nav a { min-width: 50px; padding: 6px 4px; }
+@media (max-width: 380px) { .nav a span { font-size: .64rem; } }
+.blk { --c: #a78bfa; }
+.r-S { --c: #60a5fa; } .r-V { --c: #f87171; } .r-O { --c: #34d399; } .r-T { --c: #fbbf24; } .r-L { --c: #2dd4bf; }
+.r-M { --c: #f472b6; } .r-N { --c: #94a3b8; } .r-I { --c: #c084fc; } .r-C { --c: #e5e7eb; } .r-Q { --c: #fb923c; }
+:root[data-theme="light"] .r-C { --c: #6b7280; }
+span.blk { color: var(--c); font-weight: 700; }
+.formula { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 10px 0; }
+.formula .blk, .legend.roles .blk { padding: 4px 10px; border-radius: 10px; border: 2px solid var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); font-size: .82rem; }
+.formula .plus { color: var(--muted); font-weight: 800; }
+.legend.roles { justify-content: center; margin: 4px 0 14px; }
+.levels { display: flex; flex-direction: column; gap: 10px; }
+.level { display: flex; align-items: center; gap: 14px; margin: 0; animation: rise .35s var(--ease) both; animation-delay: calc(var(--i, 0) * 35ms); }
+.level.locked { opacity: .5; filter: grayscale(.6); }
+.level.nope { animation: shake .4s ease; }
+.lv-num { display: grid; place-items: center; min-width: 46px; height: 46px; border-radius: 50%; font-weight: 900; background: var(--surface-2); }
+.level.done .lv-num { background: linear-gradient(145deg, #fbbf24, #f59e0b); color: #fff; }
+.level.current .lv-num { background: var(--grad); color: #fff; animation: nodePulse 1.8s ease-out infinite; }
+.lv-body { flex: 1; min-width: 0; }
+.lv-body .formula { margin: 6px 0 0; }
+.lv-body .formula .blk { font-size: .7rem; padding: 2px 7px; }
+.lv-go { font-weight: 800; font-size: .75rem; letter-spacing: .08em; padding: 5px 10px; border-radius: 10px; background: var(--grad); color: #fff; }
+.lv-head { margin: 0; font-size: 1.15rem; }
+.rule-card .rule-text { font-size: 1.05rem; line-height: 1.5; margin: 0 0 6px; }
+.tips { margin: 8px 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+.examples { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.example { padding: 10px 12px; border-radius: 12px; background: var(--surface-2); }
+.sent { font-size: 1.15rem; line-height: 1.5; }
+.tok.blk { border-left: 4px solid var(--c); display: inline-flex; flex-direction: column; align-items: flex-start; gap: 0; color: var(--ink); }
+.tok.blk small { font-size: .6rem; font-weight: 700; color: var(--c); text-transform: uppercase; letter-spacing: .06em; }
+.tok.fixed { cursor: default; opacity: .9; box-shadow: none; }
+.answer-line.blocks { background-image: none; min-height: 70px; }
+.prev-sent { font-size: .95rem; margin-bottom: 4px; padding: 8px 12px; border-radius: 10px; background: var(--surface-2); }
+.prev-sent::before { content: '⬆ '; }
+.fb-ans .sent { font-size: 1.05rem; }

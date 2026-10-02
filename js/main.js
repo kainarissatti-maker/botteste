@@ -14,14 +14,15 @@ import { viewWords, wordDetail } from './views/words.js';
 import { viewProgress } from './views/progress.js';
 import { viewSettings } from './views/settings.js';
 import { viewSounds } from './views/sounds.js';
+import { viewBuild } from './views/build.js';
 
 const $nav = document.getElementById('nav');
-const ROUTES = { home: viewHome, study: viewPath, review: viewStudy, lesson: viewLesson, quiz: viewQuiz, match: viewMatch, words: viewWords, progress: viewProgress, settings: viewSettings, sounds: viewSounds };
+const ROUTES = { home: viewHome, study: viewPath, review: viewStudy, lesson: viewLesson, quiz: viewQuiz, match: viewMatch, words: viewWords, progress: viewProgress, settings: viewSettings, sounds: viewSounds, build: viewBuild };
 const NAV_OF = { match: 'quiz', review: 'study', lesson: 'study', sounds: 'study' }; // telas que ficam "dentro" de outra aba
 let cleanup = null;
 
 function renderNav(active) {
-  $nav.innerHTML = ['home', 'study', 'quiz', 'words', 'progress'].map((r) =>
+  $nav.innerHTML = ['home', 'study', 'build', 'quiz', 'words', 'progress'].map((r) =>
     `<a href="#/${r}" class="${r === active ? 'active' : ''}">${ICON[r]}<span>${t(r)}</span></a>`).join('');
   const gear = document.getElementById('gear');
   gear.innerHTML = ICON.gear;
